@@ -17,6 +17,7 @@ export const getTenantInfo = () => {
   const data = JSON.parse(localStorage.getItem("tenant-info") || "null");
 
   return {
+    orgId: (data?.orgId as string | undefined) || null,
     organization: data?.organization || null,
     logo: data?.organization?.logo || null,
   };

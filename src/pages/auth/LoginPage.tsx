@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FiMail, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
+import { FiUser, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
 
 import { memberLogin } from "../../api/auth/auth-api";
 import { useAppContext } from "../../context/authContext";
@@ -11,9 +11,11 @@ import { Button, IconInput } from "../../components/ui";
 import Toast from "../../components/toast/Toast";
 import { takeIntendedPath } from "../../utils/session";
 import { HOME_ROUTE } from "../../components/auth/guards";
+import { getTenantInfo } from "../../utils/constants";
 
 export type LoginFormFields = {
-  email: string;
+  /** An email address or a membership ID. */
+  identifier: string;
   password: string;
 };
 
@@ -48,21 +50,27 @@ const LoginPage = () => {
     },
   });
 
-  const onSubmit = (data: LoginFormFields) => mutate({ userType: "member", email: data.email, password: data.password });
+  // The portal is one association's subdomain, so it names that association. Without it a
+  // person who belongs to several (same email, or same membership ID) gets the API's
+  // "choose an organization" answer, which this screen has no way to offer.
+  const onSubmit = (data: LoginFormFields) =>
+    mutate({ userType: "member", email: data.identifier.trim(), password: data.password, orgId: getTenantInfo().orgId ?? undefined });
 
   return (
     <AuthSplitLayout title="Login" subtitle="Input details to access alumnus account">
       <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
         <IconInput
           iconStyle="attached"
-          icon={FiMail}
-          type="email"
-          placeholder="Email Address"
-          autoComplete="email"
-          error={errors.email?.message}
-          {...register("email", {
-            required: "Email is required",
-            pattern: { value: /\S+@\S+\.\S+/, message: "Enter a valid email address" },
+          icon={FiUser}
+          type="text"
+          placeholder="Email Address or Membership ID"
+          autoComplete="username"
+          autoCapitalize="none"
+          error={errors.identifier?.message}
+          {...register("identifier", {
+            required: "Email address or membership ID is required",
+            // Only hold an email-shaped entry to the email pattern; anything else is a membership ID.
+            validate: value => !value.includes("@") || /\S+@\S+\.\S+/.test(value.trim()) || "Enter a valid email address",
           })}
         />
 

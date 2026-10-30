@@ -28,7 +28,8 @@ export const setPassword =async (data: {password: string, token: string}) =>{
 }
 
 
-export const memberLogin = async (data: {email: string, userType: string, password: string}) =>{
+// `email` may also be a membership ID — the API decides which by looking for an "@".
+export const memberLogin = async (data: {email: string, userType: string, password: string, orgId?: string}) =>{
     const response = await apiPublic.post(`/members/login`, data);
     return response.data
 }
