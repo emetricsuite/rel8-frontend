@@ -18,6 +18,7 @@ import EnvironmentChatTab from "./EnvironmentChatTab";
 import CircleLoader from "../../../components/loaders/CircleLoader";
 import { formatCardDateTime, formatDate, isPast } from "../../../utils/dates";
 import { eventTitle } from "../events/eventFields";
+import { ENV } from "../../../clients/labels";
 
 type TabKey = "info" | "members" | "news" | "publications" | "gallery" | "events" | "meetings" | "chat";
 
@@ -92,8 +93,8 @@ const EnvironmentDetailPage = () => {
     return (
       <>
         <BackLink to="/environment" label="Back to environment" />
-        <PageHeader title="Environment" />
-        <EmptyState icon={FiUsers} title="Environment not found" description="It may have been removed." action={<Button onClick={() => navigate("/environment")}>Back to environment</Button>} />
+        <PageHeader title={ENV} />
+        <EmptyState icon={FiUsers} title={`${ENV} not found`} description="It may have been removed." action={<Button onClick={() => navigate("/environment")}>Back to environment</Button>} />
       </>
     );
   }
@@ -103,7 +104,7 @@ const EnvironmentDetailPage = () => {
   return (
     <>
       <BackLink to="/environment" label="Back to environment" />
-      <PageHeader title={environment.name} subtitle={environment.description || `${TYPE_LABEL[environment.environmentType] ?? "Environment"} details and activity`} />
+      <PageHeader title={environment.name} subtitle={environment.description || `${TYPE_LABEL[environment.environmentType] ?? `${ENV}`} details and activity`} />
 
       <Tabs tabs={tabs} active={tab} onChange={key => setTab(key as TabKey)} />
 

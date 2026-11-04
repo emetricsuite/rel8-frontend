@@ -6,6 +6,7 @@ import { HiOutlineCalendarDays } from "react-icons/hi2";
 import { useAppContext } from "../context/authContext";
 import { formatTopbarDate } from "../utils/dates";
 import { clearTrackedApplication } from "../pages/applicant/trackedApplication";
+import { client } from "@client";
 
 /**
  * The applicant shell — `onboarding-rel8/New Applicant dashboard.png`.
@@ -23,7 +24,7 @@ const ApplicantLayout = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
   const { organization } = useAppContext();
 
-  const orgName = organization?.shortName || organization?.name || "Rel8";
+  const orgName = organization?.shortName || organization?.name || client.name;
 
   const exit = () => {
     clearTrackedApplication();

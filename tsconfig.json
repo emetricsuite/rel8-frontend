@@ -14,6 +14,8 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
+    "baseUrl": ".",
+    "paths": { "@client": ["./src/clients/rel8/index.ts"] },
     /* Disable all type checking */
     "strict": false,
     "noUnusedLocals": false,

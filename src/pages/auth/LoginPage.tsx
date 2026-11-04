@@ -12,6 +12,7 @@ import Toast from "../../components/toast/Toast";
 import { takeIntendedPath } from "../../utils/session";
 import { HOME_ROUTE } from "../../components/auth/guards";
 import { getTenantInfo } from "../../utils/constants";
+import { client } from "@client";
 
 export type LoginFormFields = {
   /** An email address or a membership ID. */
@@ -57,7 +58,7 @@ const LoginPage = () => {
     mutate({ userType: "member", email: data.identifier.trim(), password: data.password, orgId: getTenantInfo().orgId ?? undefined });
 
   return (
-    <AuthSplitLayout title="Login" subtitle="Input details to access alumnus account">
+    <AuthSplitLayout title="Login" subtitle={client.standalone ? "Input details to access your account" : "Input details to access alumnus account"}>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
         <IconInput
           iconStyle="attached"

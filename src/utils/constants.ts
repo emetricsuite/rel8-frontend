@@ -5,11 +5,13 @@ import bukaalogo from "../assets/cover-images/bukaalogo.png";
 
 import { getSubdomain } from "./extra_functions";
 import { apiPublic } from "../api/baseApi";
+import { client } from "@client";
 
 export const ENDPOINT_URL = "https://rel8back.alumsapp.com";
 // export const ENDPOINT_URL = "http://localhost:8080";
 // export const ENDPOINT_URL = import.meta.env.VITE_ENDPOINT_URL ?? "http://localhost:8080";
-export const TENANT = getSubdomain() || "aani";
+// A client's own build is locked to its association, whatever host it is served from.
+export const TENANT = client.tenant ?? (getSubdomain() || "aani");
 export const WSS = `ws://rel8back.alumsapp.com/ws/chat/${TENANT}/`;
 export const sitename = "rel8back.alumsapp.com";
 

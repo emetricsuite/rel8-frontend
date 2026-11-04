@@ -8,6 +8,7 @@ import { useAppContext } from "../../context/authContext";
 import { fetchAllNotifications } from "../../api/notifications/notifications-api";
 import { formatTopbarDate } from "../../utils/dates";
 import GlobalSearch from "./GlobalSearch";
+import { client } from "@client";
 
 interface Props {
   isMobileSidebarOpen: boolean;
@@ -62,7 +63,7 @@ const Navbar = ({ isMobileSidebarOpen, setIsMobileSidebarOpen }: Props) => {
 
         <div className="flex items-center gap-3 flex-shrink-0">
           <div className="hidden sm:block text-right leading-tight min-w-0">
-            <p className="text-sm font-semibold text-ink truncate max-w-[140px]">{organization?.shortName || organization?.name || "Rel8"}</p>
+            <p className="text-sm font-semibold text-ink truncate max-w-[140px]">{organization?.shortName || organization?.name || client.name}</p>
             <p className="text-xs text-muted truncate">{user?.exco?.isExco ? "Exco" : "Member"}</p>
           </div>
           {organization?.logo ? (

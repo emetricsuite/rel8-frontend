@@ -5,6 +5,7 @@ import Loader from "./Loader";
 import { apiPublic } from "../api/baseApi";
 import { useTheme } from "../context/themeContext";
 import { Organization } from "../types/myTypes";
+import { client } from "@client";
 
 interface TenantResponse {
   message: string;
@@ -59,7 +60,10 @@ export default function TenantGate({ children }: { children: ReactNode }) {
   const { setTheme } = useTheme();
 
   useEffect(() => {
-    if (data?.organization.colorTheme) {
+    // A client pack's colours are part of its build, not something the tenant record overrides.
+    if (client.palette) {
+      setTheme(client.palette[700], client.secondary ?? client.palette[500]);
+    } else if (data?.organization.colorTheme) {
       setTheme(data.organization.colorTheme.primary, data.organization.colorTheme.secondary);
     }
   }, [data]);

@@ -9,14 +9,15 @@ import { fetchMemberTypes } from "../../../api/member-types/member-types-api";
 
 import { Button, Card, EmptyState, PageHeader, Pagination, PersonCard, PersonCardGrid, SearchInput, Tabs, TabItem } from "../../../components/ui";
 import CircleLoader from "../../../components/loaders/CircleLoader";
+import { ENV, ENVS } from "../../../clients/labels";
 
 const PER_PAGE = 12;
 
 type TabKey = "members" | "exco" | "committee" | "general" | "types";
 
 const TABS: TabItem[] = [
-  { key: "members", label: "Member Environment" },
-  { key: "exco", label: "Excos Environment" },
+  { key: "members", label: `Member ${ENV}` },
+  { key: "exco", label: `Excos ${ENV}` },
   { key: "committee", label: "Committees" },
   { key: "general", label: "Groups" },
   { key: "types", label: "Member Types" },
@@ -149,7 +150,7 @@ const EnvironmentPage = () => {
 
   return (
     <>
-      <PageHeader title="Welcome To Your Environment" subtitle="See your organization members and excos here" />
+      <PageHeader title={`Welcome To Your ${ENVS}`} subtitle="See your organization members and excos here" />
 
       <Tabs tabs={TABS} active={tab} onChange={changeTab} />
 

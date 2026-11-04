@@ -1,0 +1,16 @@
+{
+  "key": "rel8",
+  "tenant": null,
+  "standalone": false,
+  "name": "Rel8",
+  "tagline": null,
+  "logo": null,
+  "authImage": null,
+  "homeImage": null,
+  "secondary": null,
+  "palette": null,
+  "labels": {
+    "environment": "Environment",
+    "environments": "Environments"
+  }
+}

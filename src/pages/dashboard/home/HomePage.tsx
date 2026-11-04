@@ -14,6 +14,7 @@ import { fetchUserPublications } from "../../../api/publications/publications-ap
 import { fetchUserMeetings } from "../../../api/meetings/api-meetings";
 import { fetchUserDues } from "../../../api/account/account-api";
 import { isOutstanding } from "../../../api/paystack-api";
+import { client } from "@client";
 
 import { Button, Card, EmptyState, PageHeader, StatCard, StatCardRow } from "../../../components/ui";
 import CircleLoader from "../../../components/loaders/CircleLoader";
@@ -81,6 +82,16 @@ const HomePage = () => {
   return (
     <>
       <PageHeader title="Dashboard" subtitle="Here is what's happening with your community today." />
+
+      {client.homeImage && (
+        <section className="relative overflow-hidden rounded-2xl bg-black mb-6 h-[200px] flex items-center">
+          <img src={client.homeImage} alt="" className="absolute right-0 inset-y-0 h-full w-[150px] sm:w-[260px] object-cover object-[center_12%]" />
+          <div className="relative p-6 sm:p-8 pr-[160px] sm:pr-[280px]">
+            <p className="text-xl sm:text-3xl font-bold text-white">{client.name}</p>
+            {client.tagline && <p className="text-sm sm:text-lg mt-2" style={{ color: client.secondary ?? undefined }}>{client.tagline}</p>}
+          </div>
+        </section>
+      )}
 
       {/* Renders nothing unless this member joined by applying and still owes the fee. */}
       <ApplicationFeeGate />

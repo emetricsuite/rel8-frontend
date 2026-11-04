@@ -4,6 +4,7 @@ import { HiOutlineNewspaper, HiOutlineIdentification } from "react-icons/hi2";
 import { IoWalletOutline } from "react-icons/io5";
 import { MdOutlineCalendarMonth } from "react-icons/md";
 import { SideBarLinkType } from "../types/sidebarDataType";
+import { ENVS } from "../clients/labels";
 
 /**
  * The rail, in the order every mockup draws it. See REDESIGN.md §4.
@@ -34,7 +35,7 @@ export const sideBarData: SideBarLinkType[] = [
   {
     key: "environment",
     mainIcon: FiUsers,
-    name: "Environment",
+    name: ENVS,
     // One tabbed page: members, excos, committees, groups, member types. The rail used to
     // expand into those as a submenu; the backend has since collapsed them into one
     // `Environment` resource (REDESIGN.md §0c).

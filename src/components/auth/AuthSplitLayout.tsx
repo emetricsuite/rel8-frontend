@@ -3,6 +3,7 @@ import { HiOutlineCalendarDays } from "react-icons/hi2";
 
 import { useAppContext } from "../../context/authContext";
 import illustration from "../../assets/images/auth-connecting-people.png";
+import { client } from "@client";
 
 interface Props {
   title: string;
@@ -27,15 +28,25 @@ const AuthSplitLayout = ({ title, subtitle, children, showRule = true }: Props) 
 
   return (
     <main className="min-h-screen w-full bg-white grid grid-cols-1 lg:grid-cols-2">
-      <div className="hidden lg:flex items-center justify-center border-r border-hairline p-12">
-        <img src={illustration} alt="" className="w-full max-w-lg object-contain" />
-      </div>
+      {client.authImage ? (
+        <div className="hidden lg:block relative bg-black overflow-hidden">
+          <img src={client.authImage} alt={client.name} className="absolute inset-0 w-full h-full object-cover object-top" />
+          <div className="absolute inset-x-0 bottom-0 p-12 bg-gradient-to-t from-black/90 to-transparent">
+            <p className="text-3xl font-bold text-white">{client.name}</p>
+            {client.tagline && <p className="text-lg text-white/80 mt-2">{client.tagline}</p>}
+          </div>
+        </div>
+      ) : (
+        <div className="hidden lg:flex items-center justify-center border-r border-hairline p-12">
+          <img src={illustration} alt="" className="w-full max-w-lg object-contain" />
+        </div>
+      )}
 
       <div className="flex items-center justify-center px-5 sm:px-10 py-12">
         <div className="w-full max-w-md">
           <div className="flex justify-center mb-6">
-            {organization?.logo ? (
-              <img src={organization.logo} alt={organization?.name ?? ""} className="w-24 h-24 rounded-full object-contain bg-org-tint/60 p-3" />
+            {organization?.logo || client.logo ? (
+              <img src={organization?.logo || client.logo} alt={organization?.name ?? ""} className="w-24 h-24 rounded-full object-contain bg-org-tint/60 p-3" />
             ) : (
               <span className="w-24 h-24 rounded-full bg-org-tint grid place-items-center">
                 <HiOutlineCalendarDays className="w-10 h-10 text-org-primary" />
