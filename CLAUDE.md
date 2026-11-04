@@ -3,6 +3,10 @@
 The member-facing app: dues, events, elections, projects, services, chat, profile.
 Served at `app.rel8.ng` (or whatever `FRONTEND_URL` is on the backend).
 
+> **Standalone clients (from 2026-11-04):** Yayi, then Hamzat, get their own deployment of
+> this portal. Phases, decisions and timeline are in the backend CLAUDE.md, "Standalone
+> clients". This repo's part is the SA-0 logo refresh and SA-4.
+
 > 🎨 **A full visual redesign is in flight — read [`REDESIGN.md`](./REDESIGN.md) before
 > touching any UI.** It carries the design tokens, the shared primitives in
 > `src/components/ui/`, the module-by-module plan and a "Resume here" section with the

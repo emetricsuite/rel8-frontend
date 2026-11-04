@@ -39,9 +39,12 @@ export default function TenantGate({ children }: { children: ReactNode }) {
         const hasChanged = 
           parsedStoredInfo.orgId !== data.orgId ;
 
+        // Always keep the copy current: the logo and name are read from it, so refreshing it
+        // only on a change of orgId left returning members with an old logo for ever.
+        // It is picked up on their next page load; only a different tenant forces a reload.
+        localStorage.setItem('tenant-info', JSON.stringify(data));
+
         if (hasChanged) {
-          // Update localStorage with new data
-          localStorage.setItem('tenant-info', JSON.stringify(data));
           setHasInfoChanged(true);
           
           // Optional: Reload page to apply changes
